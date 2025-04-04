@@ -1,4 +1,4 @@
-# Audio uploader
+# Messanger
 ![alt text](https://img.shields.io/badge/python-3.13.2-orange)
 
 ## Technology stack
