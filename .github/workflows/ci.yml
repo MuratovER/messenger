@@ -1,0 +1,25 @@
+name: Lint and test code
+
+on:
+  pull_request:
+    branches:
+      - main
+      - develop
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Build containers
+        run: docker compose -f docker-compose.ci.yml -p messenger_api build --build-arg DEV_DEPS=True
+
+      - name: Up containers
+        run: docker compose -f docker-compose.ci.yml -p messenger_api up -d --remove-orphans
+
+      - name: Lint
+        run: docker exec -i messenger_api make lint
+
+      - name: Down containers
+        run: docker compose -f docker-compose.ci.yml -p messenger_api down -v

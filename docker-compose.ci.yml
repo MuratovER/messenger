@@ -1,0 +1,28 @@
+services:
+  api:
+    build:
+      context: .
+      dockerfile: src/Dockerfile
+    restart: on-failure
+    container_name: messenger_api
+    working_dir: /usr/src/app/src
+    environment:
+      POSTGRES_HOST: db
+      POSTGRES_PORT: 5432
+      POSTGRES_USER: postgres_user
+      POSTGRES_PASSWORD: postgres_pass
+      POSTGRES_DB: postgres_db
+    depends_on:
+      - db
+    ports: 
+      - "8000:8000"
+
+  db:
+    image: postgres:16.8
+    container_name: messenger_db
+    restart: on-failure
+    environment:
+      - POSTGRES_USER=postgres_user
+      - POSTGRES_PASSWORD=postgres_pass
+      - POSTGRES_DB=postgres_db
+      - POSTGRES_PORT=5432

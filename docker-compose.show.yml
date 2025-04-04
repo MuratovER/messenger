@@ -1,0 +1,43 @@
+services:
+  db:
+    container_name: messenger_db
+    image: postgres:16.8
+    restart: on-failure
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_PORT=5432
+    volumes:
+      - ./db/init_data:/docker-entrypoint-initdb.d 
+    ports:
+      - "5432:5432"
+
+    healthcheck:
+      test: pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}
+      interval: 30s
+      timeout: 3s
+      retries: 3
+
+  api:
+    build:
+      context: .
+      dockerfile: src/Dockerfile
+    restart: on-failure
+    container_name: messenger
+    environment:
+      ENVIRONMENT: "showroom"
+      CORS_ALLOW_ORIGIN_LIST: ${CORS_ALLOW_ORIGIN_LIST}
+      POSTGRES_HOST: db
+      POSTGRES_PORT: ${POSTGRES_PORT}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    depends_on:
+     - db
+    ports:
+      - "8000:8000"
+
+
+volumes:
+  postgres_data:
