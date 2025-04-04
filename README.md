@@ -19,10 +19,12 @@ docker-compose -f docker-compose.show.yml up --build -d
 
 swagager_url  = `http://localhost:8000/api/swagger`
 
-*Chat for user can be found in src/db/init_data/init_data.py*\n
+*Chat for user can be found in src/db/init_data/init_data.py*
+
 websocker_url = `http://localhost:8000/ws/{chat_id}?token='Bearer {your_access_token_from_login_api}'`
 
-*Test credentials for authrozation, can be found in src/db/init_data/init_data.py*\n
+*Test credentials for authrozation, can be found in src/db/init_data/init_data.py*
+
 auth_headers = `{"Authorization": "Bearer {your_access_token_from_login_api}"`
 
 
