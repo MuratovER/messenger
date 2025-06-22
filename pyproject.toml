@@ -1,0 +1,12 @@
+[tool.poetry.dependencies]
+python = ">=3.11,<4.0"
+
+[project]
+name = "messenger"
+version = "1.0.0"
+description = "A real-time messaging application with WebSocket support"
+authors = [
+    {name = "MuratovER cooperative.entr@gmail.com"}
+]
+readme = "README.md"
+requires-python = ">=3.11,<4.0" 

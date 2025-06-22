@@ -4,7 +4,7 @@ from sqlalchemy.orm import Mapped, mapped_column
 from db.models.base import BaseModel
 
 
-class ChatsParticipant(BaseModel):
+class ChatParticipant(BaseModel):
     chat_id: Mapped[int] = mapped_column(Integer, primary_key=True)
     participant_id: Mapped[int] = mapped_column(Integer, primary_key=True)
 

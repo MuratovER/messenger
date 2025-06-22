@@ -1,6 +1,49 @@
-POSTGRES_USER=dev_user
-POSTGRES_PASSWORD=dev_pass
-POSTGRES_DB=dev_db
-YA_CLIENT_ID=
-YA_SECRET=
-ADMIN_ID=
+# Основные настройки приложения
+ENVIRONMENT=local
+SECRET=your-super-secret-key-change-in-production
+SESSION_MIDDLEWARE_SECRET=your-session-secret-change-in-production
+
+# CORS настройки
+CORS_ALLOW_ORIGIN_LIST=http://localhost:3000,http://localhost:8080
+
+# Настройки базы данных PostgreSQL
+POSTGRES_HOST=localhost
+POSTGRES_PORT=5432
+POSTGRES_USER=postgres
+POSTGRES_PASSWORD=password
+POSTGRES_DB=messenger
+
+# Настройки пула соединений БД
+DB_POOL_SIZE=20
+DB_MAX_OVERFLOW=30
+DB_POOL_TIMEOUT=30
+DB_POOL_RECYCLE=3600
+
+# Настройки Redis
+REDIS_HOST=localhost
+REDIS_PORT=6379
+REDIS_DB=0
+REDIS_PASSWORD=
+REDIS_POOL_SIZE=10
+
+# Настройки производительности
+WORKERS_COUNT=1
+MAX_CONCURRENT_REQUESTS=1000
+
+# Настройки безопасности
+PASSWORD_MIN_LENGTH=8
+PASSWORD_MAX_LENGTH=128
+
+# Rate limiting
+RATE_LIMIT_ENABLED=true
+RATE_LIMIT_REQUESTS_PER_MINUTE=60
+
+# Логирование
+LOG_LEVEL=INFO
+LOG_FORMAT={time} | {level} | {message}
+
+# WebSocket настройки
+WEBSOCKET_PING_INTERVAL=30
+WEBSOCKET_PING_TIMEOUT=10
+MAX_CONNECTIONS_PER_USER=3
+MAX_MESSAGES_PER_MINUTE=30

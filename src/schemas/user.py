@@ -15,3 +15,8 @@ class GetUserSchema(BaseUserSchema):
 
 class CreateUserSchema(BaseUserSchema):
     password: ValidatePassword
+
+
+class UpdateUserSchema(BaseOrmSchema):
+    name: str | None = None
+    email: EmailStr | None = None

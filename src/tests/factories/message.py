@@ -12,4 +12,3 @@ class MessageFactory(BaseFactory):
     chat_id = UniqueFaker("pyint")
     sender_id = UniqueFaker("pyint")
     text = UniqueStringFaker("text")
-    app_type = FuzzyChoice([True, False])
