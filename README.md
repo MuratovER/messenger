@@ -1,5 +1,7 @@
 # Messenger - Real-time Messaging Application
 
+[![Tests](https://img.shields.io/badge/tests-64%25%20coverage-brightgreen)](https://github.com/MuratovER/messenger)
+
 Современное приложение для обмена сообщениями в реальном времени с поддержкой WebSocket соединений.
 
 ## 🚀 Основные возможности
@@ -169,11 +171,17 @@ ws://localhost:8000/ws/{chat_id}?token=Bearer {jwt_token}
 
 ## 🧪 Тестирование
 
+### Покрытие кода
+Текущее покрытие тестами: **64%**
+
 ```bash
 # Запуск всех тестов
 pytest
 
 # Запуск с покрытием
+pytest --cov=src --cov-report=term-missing
+
+# Запуск с HTML отчетом
 pytest --cov=src --cov-report=html
 
 # Запуск только unit тестов
@@ -181,7 +189,69 @@ pytest -m unit
 
 # Запуск только integration тестов
 pytest -m integration
+
+# Запуск тестов с детальным отчетом
+pytest --cov=src --cov-report=term-missing --cov-report=html --cov-report=xml
 ```
+
+### Структура тестов
+```
+tests/
+├── auth/                    # Тесты аутентификации
+│   └── test_integration/    # Интеграционные тесты
+├── chat/                    # Тесты чатов
+│   └── test_integration/    # Интеграционные тесты
+├── unit/                    # Unit тесты
+├── integration/             # Общие интеграционные тесты
+├── websocket/              # WebSocket тесты
+└── factories/              # Фабрики для тестовых данных
+```
+
+### Типы тестов
+- **Unit тесты** - тестирование отдельных функций и классов
+- **Integration тесты** - тестирование взаимодействия компонентов
+- **WebSocket тесты** - тестирование real-time функциональности
+- **API тесты** - тестирование HTTP эндпоинтов
+
+### Запуск тестов в CI/CD
+```bash
+# Установка зависимостей
+poetry install
+
+# Запуск тестов с покрытием
+poetry run pytest --cov=src --cov-report=xml --cov-report=term-missing
+
+# Проверка минимального покрытия (опционально)
+poetry run pytest --cov=src --cov-fail-under=60
+```
+
+### Обновление бейджа покрытия
+Бейдж покрытия автоматически обновляется при каждом push в main ветку. Для ручного обновления:
+
+1. **Через shields.io** (рекомендуется):
+   - Перейдите на https://shields.io/
+   - Выберите "Coverage" бейдж
+   - Укажите URL вашего репозитория
+   - Скопируйте URL бейджа и обновите в README
+
+2. **Через GitHub Actions** (если настроен CI/CD):
+   ```yaml
+   - name: Generate coverage badge
+     uses: schneegans/dynamic-badges-action@v1.6.0
+     with:
+       auth: ${{ secrets.GIST_SECRET }}
+       gistID: your-gist-id
+       filename: coverage.json
+       label: coverage
+       message: ${{ steps.coverage.outputs.coverage }}%
+       namedLogo: pytest
+       color: brightgreen
+   ```
+
+### Дополнительные ресурсы
+- [Документация pytest](https://docs.pytest.org/)
+- [Документация pytest-cov](https://pytest-cov.readthedocs.io/)
+- [Best practices для тестирования FastAPI](https://fastapi.tiangolo.com/tutorial/testing/)
 
 ## 📊 Мониторинг
 

@@ -68,7 +68,7 @@ router = APIRouter(
 )
 async def get_current_user_profile(
     current_user_id: Annotated[int, Depends(get_current_user)],
-    user_service: UserService = Depends(),
+    user_service: UserService = Depends(lambda: UserService()),
 ) -> GetUserSchema:
     """
     Получение профиля текущего пользователя.
@@ -145,7 +145,7 @@ async def get_current_user_profile(
 async def update_current_user_profile(
     user_data: UpdateUserSchema,
     current_user_id: Annotated[int, Depends(get_current_user)],
-    user_service: UserService = Depends(),
+    user_service: UserService = Depends(lambda: UserService()),
 ) -> GetUserSchema:
     """
     Обновление профиля текущего пользователя.
@@ -227,9 +227,9 @@ async def update_current_user_profile(
 async def search_users(
     q: str,
     current_user_id: Annotated[int, Depends(get_current_user)],
-    user_service: UserService = Depends(),
+    user_service: UserService = Depends(lambda: UserService()),
     params: Params = Depends(),
-) -> Page[User]:
+) -> Page[GetUserSchema]:
     """
     Поиск пользователей.
     
@@ -318,7 +318,7 @@ async def search_users(
 async def get_user_by_id(
     user_id: int,
     current_user_id: Annotated[int, Depends(get_current_user)],
-    user_service: UserService = Depends(),
+    user_service: UserService = Depends(lambda: UserService()),
 ) -> GetUserSchema:
     """
     Получение информации о пользователе по ID.
